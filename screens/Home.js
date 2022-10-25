@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as api from '../api';
 import { CurrentTourItem } from '../components/CurrentTourItem';
 
-export const Home = () => {
+export const Home = ({ navigation }) => {
     const [userLogined, setUserLogined] = useState(null);
     const [currentTour, setCurrentTour] = useState([]);
     const [calendarCurrentTour, setCalendarCurrentTour] = useState(null);
@@ -73,10 +73,114 @@ export const Home = () => {
                 {currentTour.length !== 0 && (
                     <View style={styles.currentTour}>
                         <Text style={styles.labelPanel}>TOUR ĐANG DIỄN RA</Text>
-                        <CurrentTourItem
-                            currentTour={currentTour}
-                            calendarCurrentTour={calendarCurrentTour}
-                        ></CurrentTourItem>
+                        <View style={styles.tourItem}>
+                            <Text style={styles.tourName}>
+                                {currentTour[0].bt_tour.t_ten}
+                            </Text>
+
+                            <View style={styles.inforTour}>
+                                <View style={styles.imageList}>
+                                    <Image
+                                        style={styles.imageTour}
+                                        source={{
+                                            uri: currentTour[0].bt_tour
+                                                .t_hinhanh[0],
+                                        }}
+                                    />
+                                    <Image
+                                        style={styles.imageTour}
+                                        source={{
+                                            uri: currentTour[0].bt_tour
+                                                .t_hinhanh[1],
+                                        }}
+                                    />
+                                    <Image
+                                        style={styles.imageTour}
+                                        source={{
+                                            uri: currentTour[0].bt_tour
+                                                .t_hinhanh[2],
+                                        }}
+                                    />
+                                </View>
+                                <View style={styles.statusTour}>
+                                    <Text style={styles.status}>
+                                        Đang diễn ra...
+                                    </Text>
+                                </View>
+
+                                <Text style={styles.departureTour}>
+                                    Khởi hành:{' '}
+                                    {moment(
+                                        currentTour[0].bt_lichkhoihanh
+                                            .lkh_ngaykhoihanh
+                                    ).format('DD / MM / YYYY')}
+                                </Text>
+                                <Text style={styles.departureTour}>
+                                    Kết thúc:{' '}
+                                    {moment(
+                                        currentTour[0].bt_lichkhoihanh
+                                            .lkh_ngayketthuc
+                                    ).format('DD / MM / YYYY')}
+                                </Text>
+                                <Text style={styles.timeTour}>
+                                    Loại hình:{' '}
+                                    {currentTour[0].bt_tour.t_loaihinh.lht_ten}
+                                </Text>
+                                <Text style={styles.timeTour}>
+                                    Thời gian:{' '}
+                                    {currentTour[0].bt_tour.t_thoigian} ngày{' '}
+                                    {currentTour[0].bt_tour.t_thoigian - 1} đêm
+                                </Text>
+                                <View style={styles.payment}>
+                                    <Image
+                                        style={styles.coinIcon}
+                                        source={require('../images/coin_dollar_finance_icon_125510.png')}
+                                    />
+                                    <Text style={styles.totalpay}>
+                                        {currentTour[0].bt_tongthanhtoan
+                                            .toString()
+                                            .replace(
+                                                /\B(?=(\d{3})+(?!\d))/g,
+                                                '.'
+                                            )}{' '}
+                                        đ
+                                    </Text>
+                                </View>
+                            </View>
+                            <View style={styles.actions}>
+                                {calendarCurrentTour && (
+                                    <View style={styles.guideList}>
+                                        {calendarCurrentTour.ldt_huongdanvien.map(
+                                            (guide, index) => (
+                                                <Image
+                                                    key={index}
+                                                    style={styles.avatarGuide}
+                                                    source={{
+                                                        uri: guide.tkhdv_anhdaidien,
+                                                    }}
+                                                />
+                                            )
+                                        )}
+                                    </View>
+                                )}
+                                <View style={styles.buttons}>
+                                    <TouchableOpacity
+                                        style={styles.buttonView}
+                                        onPress={() => {
+                                            navigation.navigate('Details', {
+                                                currentTour: currentTour,
+                                                calendarCurrentTour:
+                                                    calendarCurrentTour,
+                                            });
+                                        }}
+                                    >
+                                        <Text style={styles.labelButton}>
+                                            CHI TIẾT
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
                     </View>
                 )}
                 <View style={styles.futureTour}>

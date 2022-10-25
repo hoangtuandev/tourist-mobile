@@ -83,7 +83,15 @@ export const CurrentTourItem = (props) => {
                     </View>
                 )}
                 <View style={styles.buttons}>
-                    <TouchableOpacity style={styles.buttonView}>
+                    <TouchableOpacity
+                        style={styles.buttonView}
+                        onPress={() => {
+                            navigation.navigate('Details', {
+                                currentTour: currentTour,
+                                calendarCurrentTour: calendarCurrentTour,
+                            });
+                        }}
+                    >
                         <Text style={styles.labelButton}>CHI TIẾT</Text>
                     </TouchableOpacity>
                 </View>
