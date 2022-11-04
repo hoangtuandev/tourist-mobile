@@ -64,7 +64,7 @@ export const Home = ({ navigation }) => {
 
     return (
         <View style={styles.home}>
-            <Header></Header>
+            <Header userLogined={userLogined}></Header>
             <ScrollView
                 style={styles.container}
                 showsVerticalScrollIndicator={false}

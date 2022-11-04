@@ -6,12 +6,8 @@ import moment from 'moment';
 export const Details = ({ route, navigation }) => {
     const { currentTour, calendarCurrentTour } = route.params;
 
-    console.log('CURRENT TOUR: ', currentTour[0]);
-    console.log('CALENDAR CURRENT TOUR: ', calendarCurrentTour);
-
     return (
         <View style={styles.container}>
-            <Header></Header>
             <Text style={styles.labelDetails}>CHI TIẾT TOUR</Text>
             <ScrollView
                 style={styles.details}
@@ -24,7 +20,7 @@ export const Details = ({ route, navigation }) => {
                         source={require('../images/icon8_101134.png')}
                     />
                     <Text style={styles.name}>
-                        Ha Noi - Nha Trang - khanh Hoa - Da Nang - Da Nang
+                        {currentTour[0].bt_tour.t_ten}
                     </Text>
                 </View>
                 <View style={styles.statusTour}>
@@ -112,7 +108,7 @@ const styles = StyleSheet.create({
         color: '#E74C3C',
         fontSize: 20,
         fontWeight: '700',
-        paddingTop: 20,
+        paddingTop: 40,
         paddingBottom: 20,
     },
     details: {
@@ -197,6 +193,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingLeft: 15,
         paddingRight: 15,
+        marginBottom: 20,
     },
 
     avatarGuide: {

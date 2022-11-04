@@ -1,10 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-export const Header = () => {
+export const Header = (props) => {
+    const { userLogined } = props;
+
     return (
         <View style={styles.header}>
-            <Text style={styles.touristName}>Phạm Hoàng Tuấn</Text>
+            {userLogined && (
+                <Text style={styles.touristName}>
+                    {userLogined.tkkdl_khachdulich.kdl_hoten}
+                </Text>
+            )}
             <TouchableOpacity>
                 <Image
                     style={styles.menuIcon}
